@@ -1,9 +1,8 @@
 package io.github.garykam.pasttext
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import io.github.garykam.pasttext.databinding.ActivityCreatePastTextBinding
 
 class CreatePastTextActivity : Activity() {
@@ -14,16 +13,12 @@ class CreatePastTextActivity : Activity() {
         binding = ActivityCreatePastTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        if (binding.editTextTitle.requestFocus()) {
-            inputManager.showSoftInput(binding.editTextTitle, InputMethodManager.SHOW_IMPLICIT)
-        }
-
-        binding.editTextTitle.setOnFocusChangeListener { view, hasFocus ->
-            if (!hasFocus) {
-                inputManager.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-        }
+        binding.textFieldTimeInterval.setText("Day", false)
+        binding.textFieldTimeInterval.setAdapter(
+            ArrayAdapter(
+                this, R.layout.item_time_interval,
+                listOf("Day", "Month", "Year")
+            )
+        )
     }
 }
