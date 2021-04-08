@@ -11,12 +11,12 @@ class PastTextListAdapter(
 ) : RecyclerView.Adapter<PastTextListAdapter.PastTextViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastTextViewHolder {
         return PastTextViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.activity_past_text, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_past_text, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: PastTextViewHolder, position: Int) {
-        holder.content.text = pastTexts[position].text
+        holder.content.text = pastTexts[position].content
     }
 
     override fun getItemCount() = pastTexts.size
