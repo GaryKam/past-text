@@ -100,7 +100,8 @@ class CreatePastTextActivity : AppCompatActivity() {
                         // Store the Past Text data into an intent, and go back to MainActivity.
                         val intent = MainActivity.newIntent(
                             this, binding.editTextTitle.text.toString(),
-                            binding.editTextContent.text.toString()
+                            binding.editTextContent.text.toString(),
+                            unlockDate.time
                         )
                         startActivity(intent)
                     }

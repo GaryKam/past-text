@@ -1,12 +1,15 @@
 package io.github.garykam.pasttext
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 class PastTextListAdapter(
+    private val context: Context,
     private val pastTexts: MutableList<PastText>
 ) : RecyclerView.Adapter<PastTextListAdapter.PastTextViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastTextViewHolder {
@@ -16,12 +19,21 @@ class PastTextListAdapter(
     }
 
     override fun onBindViewHolder(holder: PastTextViewHolder, position: Int) {
-        holder.content.text = pastTexts[position].content
+        val pastText = pastTexts[position]
+
+        holder.titleText.text = pastText.title
+
+        var timeDifference = pastText.unlockDate.time - Date().time
+        val days = timeDifference / (1000 * 60 * 60 * 24)
+        timeDifference %= 1000 * 60 * 60 * 24
+        val hours = timeDifference / (1000 * 60 * 60)
+        holder.timeText.text = context.getString(R.string.format_time, days, hours)
     }
 
     override fun getItemCount() = pastTexts.size
 
     class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val content: TextView = itemView.findViewById(R.id.text_content)
+        val titleText: TextView = itemView.findViewById(R.id.text_title)
+        val timeText: TextView = itemView.findViewById(R.id.text_time)
     }
 }
