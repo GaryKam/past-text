@@ -21,7 +21,7 @@ class PastTextListAdapter(
 
     override fun getItemCount() = pastTexts.size
 
-    class PastTextViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val content: TextView = itemView.findViewById(R.id.text_content)
     }
 }

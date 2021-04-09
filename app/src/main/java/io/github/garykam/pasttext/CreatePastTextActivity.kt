@@ -1,7 +1,6 @@
 package io.github.garykam.pasttext
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -45,6 +44,15 @@ class CreatePastTextActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_option_done -> {
+                // Display an error if the Past Text title is empty.
+                if (binding.editTextTitle.text.toString().isEmpty()) {
+                    binding.editTextTitle.apply {
+                        requestFocus()
+                        error = "Title is required"
+                    }
+                    return super.onOptionsItemSelected(item)
+                }
+
                 // Display an error if the Past Text content is empty.
                 if (binding.editTextContent.text.toString().isEmpty()) {
                     binding.editTextContent.apply {
@@ -55,7 +63,8 @@ class CreatePastTextActivity : AppCompatActivity() {
                 }
 
                 // Display an error if the Past Text duration is empty.
-                if (binding.editTextDuration.text.toString().isEmpty()) {
+                val duration = binding.editTextDuration.text.toString()
+                if (duration.isEmpty() || duration == "0") {
                     binding.editTextDuration.apply {
                         requestFocus()
                         error = "Duration is required"
@@ -88,9 +97,11 @@ class CreatePastTextActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                     .setPositiveButton(R.string.yes) { _: DialogInterface, _: Int ->
-                        val intent = Intent(this@CreatePastTextActivity, MainActivity::class.java)
-                        intent.putExtra("TITLE", binding.editTextTitle.text.toString())
-                        intent.putExtra("CONTENT", binding.editTextContent.text.toString())
+                        // Store the Past Text data into an intent, and go back to MainActivity.
+                        val intent = MainActivity.newIntent(
+                            this, binding.editTextTitle.text.toString(),
+                            binding.editTextContent.text.toString()
+                        )
                         startActivity(intent)
                     }
                     .show()

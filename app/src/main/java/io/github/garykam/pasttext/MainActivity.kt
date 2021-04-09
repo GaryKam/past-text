@@ -1,5 +1,6 @@
 package io.github.garykam.pasttext
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,19 @@ class MainActivity : AppCompatActivity() {
 
         // Add a newly created Past Text using data from the intent.
         intent.extras?.let {
-            pastTexts.add(PastText(it.getString("TITLE"), it.getString("CONTENT")!!))
+            pastTexts.add(PastText(it.getString("TITLE")!!, it.getString("CONTENT")!!))
+        }
+    }
+
+    companion object {
+        private const val EXTRA_TITLE = "io.github.garykam.pasttext.TITLE"
+        private const val EXTRA_CONTENT = "io.github.garykam.pasttext.CONTENT"
+
+        fun newIntent(context: Context, title: String, content: String): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(EXTRA_TITLE, title)
+            intent.putExtra(EXTRA_CONTENT, content)
+            return intent
         }
     }
 }
