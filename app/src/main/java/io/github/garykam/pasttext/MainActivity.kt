@@ -1,8 +1,8 @@
 package io.github.garykam.pasttext
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import io.github.garykam.pasttext.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,8 +16,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerPastText.adapter = PastTextListAdapter(pastTexts)
 
+        // Floating action button to navigate to the Past Text creation screen.
         binding.floatingButtonCreate.setOnClickListener {
             startActivity(Intent(this, CreatePastTextActivity::class.java))
+        }
+
+        // Add a newly created Past Text using data from the intent.
+        intent.extras?.let {
+            pastTexts.add(PastText(it.getString("TITLE"), it.getString("CONTENT")!!))
         }
     }
 }

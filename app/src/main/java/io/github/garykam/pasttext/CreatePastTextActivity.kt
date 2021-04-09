@@ -1,6 +1,7 @@
 package io.github.garykam.pasttext
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.garykam.pasttext.databinding.ActivityCreatePastTextBinding
+import java.text.DateFormat
+import java.util.*
 
 class CreatePastTextActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreatePastTextBinding
@@ -17,16 +20,24 @@ class CreatePastTextActivity : AppCompatActivity() {
         binding = ActivityCreatePastTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.textFieldTimeInterval.setText(R.string.day)
-        binding.textFieldTimeInterval.setAdapter(
-            ArrayAdapter(
-                this, R.layout.item_time_interval,
-                listOf(R.string.day, R.string.month, R.string.year)
+        // Set the options available for the text field.
+        binding.textFieldTimeInterval.apply {
+            setText(R.string.day)
+            setAdapter(
+                ArrayAdapter(
+                    this@CreatePastTextActivity, R.layout.item_time_interval,
+                    listOf(
+                        getString(R.string.day),
+                        getString(R.string.month),
+                        getString(R.string.year)
+                    )
+                )
             )
-        )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Create a menu with a "Done" option.
         menuInflater.inflate(R.menu.menu_options, menu)
         return true
     }
@@ -34,14 +45,53 @@ class CreatePastTextActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_option_done -> {
-                MaterialAlertDialogBuilder(this)
-                    .setTitle("Confirmation")
-                    .setMessage("Do you want to save the Past Text?")
-                    .setNegativeButton("No") { dialog: DialogInterface, button: Int ->
-
+                // Display an error if the Past Text content is empty.
+                if (binding.editTextContent.text.toString().isEmpty()) {
+                    binding.editTextContent.apply {
+                        requestFocus()
+                        error = "Content is required"
                     }
-                    .setPositiveButton("Yes") { dialog: DialogInterface, button: Int ->
+                    return super.onOptionsItemSelected(item)
+                }
 
+                // Display an error if the Past Text duration is empty.
+                if (binding.editTextDuration.text.toString().isEmpty()) {
+                    binding.editTextDuration.apply {
+                        requestFocus()
+                        error = "Duration is required"
+                    }
+                    return super.onOptionsItemSelected(item)
+                }
+
+                // Get the corresponding time interval.
+                val field = when (binding.textFieldTimeInterval.text.toString()) {
+                    getString(R.string.day) -> Calendar.DAY_OF_MONTH
+                    getString(R.string.month) -> Calendar.MONTH
+                    getString(R.string.year) -> Calendar.YEAR
+                    else -> return super.onOptionsItemSelected(item)
+                }
+
+                // Calculate the date when the Past Text will be unlocked.
+                val unlockDate = Calendar.getInstance()
+                unlockDate.add(field, binding.editTextDuration.text.toString().toInt())
+
+                // Display a confirmation dialog to lock and save the Past Text.
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.confirm)
+                    .setMessage(
+                        getString(
+                            R.string.confirm_save,
+                            DateFormat.getDateInstance().format(unlockDate.time)
+                        )
+                    )
+                    .setNegativeButton(R.string.no) { dialog: DialogInterface, _: Int ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton(R.string.yes) { _: DialogInterface, _: Int ->
+                        val intent = Intent(this@CreatePastTextActivity, MainActivity::class.java)
+                        intent.putExtra("TITLE", binding.editTextTitle.text.toString())
+                        intent.putExtra("CONTENT", binding.editTextContent.text.toString())
+                        startActivity(intent)
                     }
                     .show()
             }

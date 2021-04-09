@@ -8,4 +8,8 @@
     <string name="day">Day</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="confirm">Confirmation</string>
+    <string name="confirm_save">Do you want to save the Past Text?\nIt will be locked until %s.</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>
