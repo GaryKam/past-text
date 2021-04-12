@@ -12,6 +12,8 @@
     <string name="confirm_save">Do you want to save the Past Text?\nIt will be locked until %s.</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="ok">Okay</string>
     <string name="desc_time">Remaining time</string>
     <string name="format_time">%d days %d hours</string>
+    <string name="locked_past_text">This Past text is not unlocked yet.</string>
 </resources>

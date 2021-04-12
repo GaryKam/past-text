@@ -19,13 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerPastText.adapter = PastTextListAdapter(baseContext, pastTexts)
-
-        // Floating action button to navigate to the Past Text creation screen.
-        binding.floatingButtonCreate.setOnClickListener {
-            startActivity(Intent(this, CreatePastTextActivity::class.java))
-        }
-
         // Add a newly created Past Text using data from the intent.
         intent.extras?.let {
             pastTexts.add(
@@ -36,6 +29,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+
+        binding.recyclerPastText.adapter = PastTextListAdapter(baseContext, pastTexts)
+
+        // Floating action button to navigate to the Past Text creation screen.
+        binding.floatingButtonCreate.setOnClickListener {
+            startActivity(Intent(this, PastTextCreateActivity::class.java))
+        }
     }
 
     companion object {
@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         private const val EXTRA_CONTENT = "io.github.garykam.pasttext.CONTENT"
         private const val EXTRA_UNLOCK_DATE = "io.github.garykam.pasttext.EXTRA_UNLOCK_DATE"
 
-        fun newIntent(context: Context, title: String, content: String, unlockDate: Date): Intent {
+        fun startActivity(context: Context, title: String, content: String, unlockDate: Date) {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra(EXTRA_TITLE, title)
             intent.putExtra(EXTRA_CONTENT, content)
             intent.putExtra(EXTRA_UNLOCK_DATE, unlockDate)
-            return intent
+            context.startActivity(intent)
         }
     }
 }

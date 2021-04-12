@@ -7,16 +7,16 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import io.github.garykam.pasttext.databinding.ActivityCreatePastTextBinding
+import io.github.garykam.pasttext.databinding.ActivityPastTextCreateBinding
 import java.text.DateFormat
 import java.util.*
 
-class CreatePastTextActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCreatePastTextBinding
+class PastTextCreateActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPastTextCreateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreatePastTextBinding.inflate(layoutInflater)
+        binding = ActivityPastTextCreateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Set the options available for the text field.
@@ -24,7 +24,7 @@ class CreatePastTextActivity : AppCompatActivity() {
             setText(R.string.day)
             setAdapter(
                 ArrayAdapter(
-                    this@CreatePastTextActivity, R.layout.item_time_interval,
+                    this@PastTextCreateActivity, R.layout.item_time_interval,
                     listOf(
                         getString(R.string.day),
                         getString(R.string.month),
@@ -98,12 +98,11 @@ class CreatePastTextActivity : AppCompatActivity() {
                     }
                     .setPositiveButton(R.string.yes) { _: DialogInterface, _: Int ->
                         // Store the Past Text data into an intent, and go back to MainActivity.
-                        val intent = MainActivity.newIntent(
+                        MainActivity.startActivity(
                             this, binding.editTextTitle.text.toString(),
                             binding.editTextContent.text.toString(),
                             unlockDate.time
                         )
-                        startActivity(intent)
                     }
                     .show()
             }

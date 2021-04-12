@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.*
 
 class PastTextListAdapter(
@@ -32,8 +33,24 @@ class PastTextListAdapter(
 
     override fun getItemCount() = pastTexts.size
 
-    class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleText: TextView = itemView.findViewById(R.id.text_title)
         val timeText: TextView = itemView.findViewById(R.id.text_time)
+
+        init {
+            itemView.setOnClickListener {
+                val pastText = pastTexts[adapterPosition]
+                if (pastText.isUnlocked()) {
+                    PastTextDetailsActivity.startActivity(
+                        it.context, pastText.title, pastText.content
+                    )
+                } else {
+                    MaterialAlertDialogBuilder(itemView.context)
+                        .setMessage(R.string.locked_past_text)
+                        .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                        .show()
+                }
+            }
+        }
     }
 }

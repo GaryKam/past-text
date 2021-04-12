@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreatePastTextActivity" />
+        <activity android:name=".PastTextCreateActivity" />
+        <activity android:name=".PastTextDetailsActivity" />
     </application>
 
 </manifest>
