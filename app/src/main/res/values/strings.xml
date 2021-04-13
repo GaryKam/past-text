@@ -15,5 +15,5 @@
     <string name="ok">Okay</string>
     <string name="desc_time">Remaining time</string>
     <string name="format_time">%d days %d hours</string>
-    <string name="locked_past_text">This Past text is not unlocked yet.</string>
+    <string name="locked_past_text">This Past Text is not unlocked yet.</string>
 </resources>
