@@ -9,12 +9,12 @@
 
     <TextView
         android:id="@+id/text_title"
-        android:paddingVertical="8dp"
         android:layout_width="0dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:background="@drawable/upper_round_background"
         android:backgroundTint="@color/dark_teal"
+        android:gravity="center"
+        android:paddingVertical="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
