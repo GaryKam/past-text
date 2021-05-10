@@ -10,9 +10,9 @@
     <string name="year">Year</string>
     <string name="confirm">Confirmation</string>
     <string name="confirm_save">Do you want to save the Past Text?\nIt will be locked until %s.</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="ok">Okay</string>
+    <string name="no">@android:string/no</string>
+    <string name="yes">@android:string/yes</string>
+    <string name="ok">@android:string/ok</string>
     <string name="desc_time">Remaining time</string>
     <string name="format_time">%d days %d hours</string>
     <string name="locked_past_text">This Past Text is not unlocked yet.</string>

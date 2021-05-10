@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.github.garykam.pasttext.model.PastText
 import java.util.*
 
 class PastTextListAdapter(
     private val context: Context,
-    private val pastTexts: MutableList<PastText>
+    private val pastTexts: List<PastText>
 ) : RecyclerView.Adapter<PastTextListAdapter.PastTextViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastTextViewHolder {
         return PastTextViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_past_text, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_past_text, parent, false)
         )
     }
 
@@ -41,18 +41,18 @@ class PastTextListAdapter(
 
     override fun getItemCount() = pastTexts.size
 
-    inner class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PastTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleText: TextView = itemView.findViewById(R.id.text_title)
         val timeText: TextView = itemView.findViewById(R.id.text_time)
         val timeImage: ImageView = itemView.findViewById(R.id.image_time)
 
-        init {
+        /*init {
             itemView.setOnClickListener {
                 val pastText = pastTexts[adapterPosition]
 
                 if (pastText.isUnlocked()) {
                     // Display details activity when the Past Text is clicked.
-                    PastTextDetailsActivity.startActivity(
+                    DetailsFragment.startActivity(
                         it.context, pastText.title, pastText.content
                     )
                 } else {
@@ -63,6 +63,6 @@ class PastTextListAdapter(
                         .show()
                 }
             }
-        }
+        }*/
     }
 }
