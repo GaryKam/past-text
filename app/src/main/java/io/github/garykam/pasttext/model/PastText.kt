@@ -7,6 +7,9 @@ data class PastText(
     val content: String,
     val unlockDate: Date
 ) {
+    /**
+     * @return True if the Past Text can be viewed
+     */
     fun isUnlocked(): Boolean {
         return unlockDate.time < System.currentTimeMillis()
     }

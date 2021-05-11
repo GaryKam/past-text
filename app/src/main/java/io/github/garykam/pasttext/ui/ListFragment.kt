@@ -2,6 +2,7 @@ package io.github.garykam.pasttext.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,13 +25,22 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             viewModel.pastTexts.value!!,
             PastTextListAdapter.PastTextListener { index ->
                 val pastText = viewModel.pastTexts.value!![index]
-                val action = ListFragmentDirections.actionListFragmentToDetailsFragment(
-                    pastText.title,
-                    pastText.content
-                )
 
-                // Display details of the clicked Past Text.
-                findNavController().navigate(action)
+                if (pastText.isUnlocked()) {
+                    // Display details of the clicked Past Text.
+                    ListFragmentDirections.actionListFragmentToDetailsFragment(
+                        pastText.title,
+                        pastText.content
+                    ).let {
+                        findNavController().navigate(it)
+                    }
+                } else {
+                    // Alert the user that the Past Text is still locked.
+                    AlertDialog.Builder(requireContext())
+                        .setMessage(R.string.locked_past_text)
+                        .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                        .show()
+                }
             }
         )
 
