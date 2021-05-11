@@ -44,7 +44,7 @@ class PastTextListAdapter(
             if (pastText.isUnlocked()) {
                 // Indicate that the Past Text is unlocked.
                 binding.imageTime.setImageResource(R.drawable.ic_lock_open)
-                binding.textTitle.visibility = View.INVISIBLE
+                binding.textTime.visibility = View.INVISIBLE
             } else {
                 // Show the time remaining until the Past Text will unlock.
                 var timeDifference = pastText.unlockDate.time - Date().time

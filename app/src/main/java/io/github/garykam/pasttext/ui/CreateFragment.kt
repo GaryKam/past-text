@@ -79,7 +79,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
      */
     private fun submitPastText(): Boolean {
         // Display an error if the Past Text title is empty.
-        if (binding.editTextTitle.text.toString().isEmpty()) {
+        if (binding.editTextTitle.text.toString().isBlank()) {
             binding.editTextTitle.apply {
                 requestFocus()
                 error = getString(R.string.error_title)
@@ -89,7 +89,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         }
 
         // Display an error if the Past Text content is empty.
-        if (binding.editTextContent.text.toString().isEmpty()) {
+        if (binding.editTextContent.text.toString().isBlank()) {
             binding.editTextContent.apply {
                 requestFocus()
                 error = getString(R.string.error_content)
@@ -99,8 +99,8 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         }
 
         // Display an error if the Past Text duration is empty.
-        val duration = binding.editTextDuration.text.toString()
-        if (duration.isEmpty() || duration == "0") {
+        val duration = binding.editTextDuration.text.toString().toIntOrNull()
+        if (duration == null) {
             binding.editTextDuration.apply {
                 requestFocus()
                 error = getString(R.string.error_duration)
@@ -114,7 +114,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
 
         // Calculate the date when the Past Text will be unlocked.
         val unlockDate = Calendar.getInstance()
-        unlockDate.add(field, binding.editTextDuration.text.toString().toInt())
+        unlockDate.add(field, duration)
 
         // Display a confirmation dialog to lock and save the Past Text.
         AlertDialog.Builder(requireContext())
