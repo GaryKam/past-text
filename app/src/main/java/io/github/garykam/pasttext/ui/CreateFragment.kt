@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import io.github.garykam.pasttext.R
+import io.github.garykam.pasttext.data.model.PastText
+import io.github.garykam.pasttext.data.service.AlarmHelper
 import io.github.garykam.pasttext.databinding.FragmentCreateBinding
-import io.github.garykam.pasttext.model.PastText
-import io.github.garykam.pasttext.viewmodel.MainViewModel
 import java.text.DateFormat
 import java.util.*
 
@@ -30,6 +30,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
 
         // Requires activity context to get String resources.
         timeFields = mapOf(
+            "Minute" to Calendar.MINUTE,
             getString(R.string.day) to Calendar.DAY_OF_MONTH,
             getString(R.string.month) to Calendar.MONTH,
             getString(R.string.year) to Calendar.YEAR
@@ -42,10 +43,10 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
 
         // Set the options available for the text field.
         binding.textFieldTimeInterval.apply {
-            setText(R.string.day)
+            setText("Minute")
             setAdapter(
                 ArrayAdapter(
-                    requireContext(),
+                    context,
                     R.layout.item_time_interval,
                     listOf(timeFields.keys)
                 )
@@ -109,12 +110,13 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             return false
         }
 
-        // Get the corresponding time interval.
-        val field = timeFields[binding.textFieldTimeInterval.text.toString()] ?: return false
-
         // Calculate the date when the Past Text will be unlocked.
-        val unlockDate = Calendar.getInstance()
-        unlockDate.add(field, duration)
+        val unlockDate = Calendar.getInstance().apply {
+            // Get the corresponding time interval.
+            val field = timeFields[binding.textFieldTimeInterval.text.toString()] ?: return false
+
+            add(field, duration)
+        }
 
         // Display a confirmation dialog to lock and save the Past Text.
         AlertDialog.Builder(requireContext())
@@ -137,6 +139,8 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                         unlockDate.time
                     )
                 )
+
+                AlarmHelper.startAlarm(requireActivity().applicationContext, unlockDate)
 
                 // Return to the previous fragment.
                 findNavController().navigate(R.id.action_createFragment_to_listFragment)

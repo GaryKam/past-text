@@ -1,4 +1,4 @@
-package io.github.garykam.pasttext.model
+package io.github.garykam.pasttext.data.model
 
 import java.util.*
 

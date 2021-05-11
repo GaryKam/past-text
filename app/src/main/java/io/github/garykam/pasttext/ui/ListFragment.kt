@@ -6,10 +6,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import io.github.garykam.pasttext.PastTextListAdapter
+import io.github.garykam.pasttext.ui.adapter.PastTextListAdapter
 import io.github.garykam.pasttext.R
 import io.github.garykam.pasttext.databinding.FragmentListBinding
-import io.github.garykam.pasttext.viewmodel.MainViewModel
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
@@ -31,8 +30,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     ListFragmentDirections.actionListFragmentToDetailsFragment(
                         pastText.title,
                         pastText.content
-                    ).let {
-                        findNavController().navigate(it)
+                    ).let { action ->
+                        findNavController().navigate(action)
                     }
                 } else {
                     // Alert the user that the Past Text is still locked.

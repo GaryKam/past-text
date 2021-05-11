@@ -1,9 +1,9 @@
-package io.github.garykam.pasttext.viewmodel
+package io.github.garykam.pasttext.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.github.garykam.pasttext.model.PastText
+import io.github.garykam.pasttext.data.model.PastText
 
 class MainViewModel : ViewModel() {
     private val _pastTexts: MutableLiveData<MutableList<PastText>> = MutableLiveData(mutableListOf())

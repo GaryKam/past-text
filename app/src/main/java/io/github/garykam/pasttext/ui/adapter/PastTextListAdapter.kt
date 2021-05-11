@@ -1,11 +1,12 @@
-package io.github.garykam.pasttext
+package io.github.garykam.pasttext.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.github.garykam.pasttext.R
 import io.github.garykam.pasttext.databinding.ItemPastTextBinding
-import io.github.garykam.pasttext.model.PastText
+import io.github.garykam.pasttext.data.model.PastText
 import java.util.*
 
 class PastTextListAdapter(
