@@ -16,4 +16,7 @@
     <string name="desc_time">Remaining time</string>
     <string name="format_time">%d days %d hours</string>
     <string name="locked_past_text">This Past Text is not unlocked yet.</string>
+    <string name="error_title">Title is required</string>
+    <string name="error_content">Content is required</string>
+    <string name="error_duration">Duration is required</string>
 </resources>

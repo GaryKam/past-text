@@ -14,17 +14,34 @@
         <action
             android:id="@+id/action_listFragment_to_createFragment"
             app:destination="@id/createFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/createFragment"
         android:name="io.github.garykam.pasttext.ui.CreateFragment"
         android:label="CreateFragment"
-        tools:layout="@layout/fragment_create" >
+        tools:layout="@layout/fragment_create">
 
         <action
             android:id="@+id/action_createFragment_to_listFragment"
             app:destination="@id/listFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="io.github.garykam.pasttext.ui.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="content"
+            app:argType="string" />
     </fragment>
 
 </navigation>

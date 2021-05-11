@@ -22,10 +22,18 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     private val binding
         get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels()
+    private lateinit var timeFields: Map<String, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        // Requires activity context to get String resources.
+        timeFields = mapOf(
+            getString(R.string.day) to Calendar.DAY_OF_MONTH,
+            getString(R.string.month) to Calendar.MONTH,
+            getString(R.string.year) to Calendar.YEAR
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,12 +45,9 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             setText(R.string.day)
             setAdapter(
                 ArrayAdapter(
-                    requireContext(), R.layout.item_time_interval,
-                    listOf(
-                        getString(R.string.day),
-                        getString(R.string.month),
-                        getString(R.string.year)
-                    )
+                    requireContext(),
+                    R.layout.item_time_interval,
+                    listOf(timeFields.keys)
                 )
             )
         }
@@ -77,7 +82,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         if (binding.editTextTitle.text.toString().isEmpty()) {
             binding.editTextTitle.apply {
                 requestFocus()
-                error = "Title is required"
+                error = getString(R.string.error_title)
             }
 
             return false
@@ -87,7 +92,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         if (binding.editTextContent.text.toString().isEmpty()) {
             binding.editTextContent.apply {
                 requestFocus()
-                error = "Content is required"
+                error = getString(R.string.error_content)
             }
 
             return false
@@ -98,19 +103,14 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         if (duration.isEmpty() || duration == "0") {
             binding.editTextDuration.apply {
                 requestFocus()
-                error = "Duration is required"
+                error = getString(R.string.error_duration)
             }
 
             return false
         }
 
         // Get the corresponding time interval.
-        val field = when (binding.textFieldTimeInterval.text.toString()) {
-            getString(R.string.day) -> Calendar.DAY_OF_MONTH
-            getString(R.string.month) -> Calendar.MONTH
-            getString(R.string.year) -> Calendar.YEAR
-            else -> return false
-        }
+        val field = timeFields[binding.textFieldTimeInterval.text.toString()] ?: return false
 
         // Calculate the date when the Past Text will be unlocked.
         val unlockDate = Calendar.getInstance()
