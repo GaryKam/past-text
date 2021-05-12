@@ -1,15 +1,30 @@
 package io.github.garykam.pasttext.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import io.github.garykam.pasttext.data.model.PastText
+import io.github.garykam.pasttext.data.repository.PastTextRepository
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val _pastTexts: MutableLiveData<MutableList<PastText>> = MutableLiveData(mutableListOf())
-    val pastTexts: LiveData<MutableList<PastText>> = _pastTexts
+class MainViewModel(
+    private val repository: PastTextRepository
+) : ViewModel() {
+    val pastTexts: LiveData<List<PastText>> = repository.pastTexts.asLiveData()
 
     fun addPastText(pastText: PastText) {
-        _pastTexts.value!!.add(pastText)
+        viewModelScope.launch {
+            repository.addPastText(pastText)
+        }
+    }
+}
+
+class MainViewModelFactory(
+    private val repository: PastTextRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="io.github.garykam.pasttext.ui.ListFragment"
+        android:name="io.github.garykam.pasttext.ui.fragments.ListFragment"
         android:label="ListFragment"
         tools:layout="@layout/fragment_list">
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/createFragment"
-        android:name="io.github.garykam.pasttext.ui.CreateFragment"
+        android:name="io.github.garykam.pasttext.ui.fragments.CreateFragment"
         android:label="CreateFragment"
         tools:layout="@layout/fragment_create">
 
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="io.github.garykam.pasttext.ui.DetailsFragment"
+        android:name="io.github.garykam.pasttext.ui.fragments.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details">
 

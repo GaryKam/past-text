@@ -1,4 +1,4 @@
-package io.github.garykam.pasttext.ui
+package io.github.garykam.pasttext.ui.fragments
 
 import android.os.Bundle
 import android.view.View

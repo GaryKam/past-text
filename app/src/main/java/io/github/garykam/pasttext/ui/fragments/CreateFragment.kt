@@ -1,4 +1,4 @@
-package io.github.garykam.pasttext.ui
+package io.github.garykam.pasttext.ui.fragments
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,10 +10,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import io.github.garykam.pasttext.PastTextApplication
 import io.github.garykam.pasttext.R
 import io.github.garykam.pasttext.data.model.PastText
 import io.github.garykam.pasttext.data.service.AlarmHelper
 import io.github.garykam.pasttext.databinding.FragmentCreateBinding
+import io.github.garykam.pasttext.ui.MainViewModel
+import io.github.garykam.pasttext.ui.MainViewModelFactory
 import java.text.DateFormat
 import java.util.*
 
@@ -21,7 +24,9 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     private var _binding: FragmentCreateBinding? = null
     private val binding
         get() = _binding!!
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory((requireActivity().application as PastTextApplication).repository)
+    }
     private lateinit var timeFields: Map<String, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
