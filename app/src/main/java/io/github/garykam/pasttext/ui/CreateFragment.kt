@@ -30,7 +30,6 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
 
         // Requires activity context to get String resources.
         timeFields = mapOf(
-            "Minute" to Calendar.MINUTE,
             getString(R.string.day) to Calendar.DAY_OF_MONTH,
             getString(R.string.month) to Calendar.MONTH,
             getString(R.string.year) to Calendar.YEAR
@@ -43,7 +42,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
 
         // Set the options available for the text field.
         binding.textFieldTimeInterval.apply {
-            setText("Minute")
+            setText(R.string.day)
             setAdapter(
                 ArrayAdapter(
                     context,

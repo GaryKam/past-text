@@ -15,8 +15,11 @@
     <string name="ok">@android:string/ok</string>
     <string name="desc_time">Remaining time</string>
     <string name="format_time">%d days %d hours</string>
-    <string name="locked_past_text">This Past Text is not unlocked yet.</string>
+    <string name="past_text_locked">This Past Text is not unlocked yet.</string>
+    <string name="past_text_unlocked">A Past Text has unlocked</string>
+    <string name="past_text_view">Tap to view details</string>
     <string name="error_title">Title is required</string>
     <string name="error_content">Content is required</string>
     <string name="error_duration">Duration is required</string>
+    <string name="channel_desc">Alert when a Past Text is unlocked</string>
 </resources>

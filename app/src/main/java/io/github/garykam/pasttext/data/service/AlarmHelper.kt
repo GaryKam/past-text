@@ -9,11 +9,11 @@ import java.util.*
 
 object AlarmHelper {
     fun startAlarm(context: Context, calendar: Calendar) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
 
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC, calendar.timeInMillis, alarmIntent)
     }
 }

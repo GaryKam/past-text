@@ -36,7 +36,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 } else {
                     // Alert the user that the Past Text is still locked.
                     AlertDialog.Builder(requireContext())
-                        .setMessage(R.string.locked_past_text)
+                        .setMessage(R.string.past_text_locked)
                         .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                         .show()
                 }
