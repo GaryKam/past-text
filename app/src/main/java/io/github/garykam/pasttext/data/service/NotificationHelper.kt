@@ -13,6 +13,9 @@ import io.github.garykam.pasttext.ui.MainActivity
 object NotificationHelper {
     private const val CHANNEL_ID = "CHANNEL_PAST_TEXT"
 
+    /**
+     * Creates a notification channel for Past Text alerts.
+     */
     fun createChannel(context: Context) {
         val channel = NotificationChannel(
             CHANNEL_ID, context.getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT
@@ -23,7 +26,11 @@ object NotificationHelper {
         NotificationManagerCompat.from(context).createNotificationChannel(channel)
     }
 
+    /**
+     * Creates a Past Text notification.
+     */
     fun createNotification(context: Context) {
+        // Open the app when the notification is tapped.
         val pendingIntent = Intent(context, MainActivity::class.java).let { intent ->
             PendingIntent.getActivity(context, 0, intent, 0)
         }

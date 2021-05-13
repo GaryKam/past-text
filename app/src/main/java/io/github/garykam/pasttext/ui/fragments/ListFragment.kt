@@ -1,7 +1,6 @@
 package io.github.garykam.pasttext.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment

@@ -120,7 +120,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             val field = timeFields[binding.textFieldTimeInterval.text.toString()] ?: return false
 
             add(field, duration)
-        }
+        }.time
 
         // Display a confirmation dialog to lock and save the Past Text.
         AlertDialog.Builder(requireContext())
@@ -140,10 +140,11 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
                     PastText(
                         binding.editTextTitle.text.toString(),
                         binding.editTextContent.text.toString(),
-                        unlockDate.time
+                        unlockDate
                     )
                 )
 
+                // Alert when the Past Text unlocks.
                 AlarmHelper.startAlarm(requireActivity().applicationContext, unlockDate)
 
                 // Return to the previous fragment.

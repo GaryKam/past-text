@@ -6,6 +6,10 @@ import android.content.Intent
 import io.github.garykam.pasttext.data.service.NotificationHelper
 
 class AlarmReceiver : BroadcastReceiver() {
+    /**
+     * Receives alarms created in
+     * [io.github.garykam.pasttext.data.service.AlarmHelper]
+     */
     override fun onReceive(context: Context?, intent: Intent?) {
         NotificationHelper.createNotification(context!!)
     }
