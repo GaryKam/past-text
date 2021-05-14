@@ -10,10 +10,24 @@ class MainViewModel(
 ) : ViewModel() {
     val pastTexts: LiveData<List<PastText>> = repository.pastTexts.asLiveData()
 
-    fun addPastText(pastText: PastText) {
+    /**
+     * Saves the Past Text.
+     *
+     * @return True if the Past Text was successfully added
+     */
+    fun addPastText(pastText: PastText): Boolean {
+        // Prevent adding Past Text with same primary key.
+        pastTexts.value!!.forEach {
+            if (it.title == pastText.title) {
+                return false
+            }
+        }
+
         viewModelScope.launch {
             repository.addPastText(pastText)
         }
+
+        return true
     }
 
     fun deletePastTexts() {

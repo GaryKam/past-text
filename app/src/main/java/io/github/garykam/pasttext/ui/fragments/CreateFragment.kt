@@ -58,7 +58,6 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Create a menu with a "Done" option.
         inflater.inflate(R.menu.menu_create, menu)
@@ -80,7 +79,7 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
     /**
      * Stores the newly created Past Text.
      *
-     * @return False if the Past Text is not valid
+     * @return True if the Past Text is submitted successfully
      */
     private fun submitPastText(): Boolean {
         // Display an error if the Past Text title is empty.
@@ -136,19 +135,29 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
             }
             .setPositiveButton(R.string.yes) { _, _ ->
                 // Save the Past Text into the view model.
-                viewModel.addPastText(
-                    PastText(
-                        binding.editTextTitle.text.toString(),
-                        binding.editTextContent.text.toString(),
-                        unlockDate
+                if (viewModel.addPastText(
+                        PastText(
+                            binding.editTextTitle.text.toString(),
+                            binding.editTextContent.text.toString(),
+                            unlockDate
+                        )
                     )
-                )
+                ) {
+                    // Alert when the Past Text unlocks.
+                    AlarmHelper.startAlarm(requireActivity().applicationContext, unlockDate)
 
-                // Alert when the Past Text unlocks.
-                AlarmHelper.startAlarm(requireActivity().applicationContext, unlockDate)
-
-                // Return to the previous fragment.
-                findNavController().navigate(R.id.action_createFragment_to_listFragment)
+                    // Return to the previous fragment.
+                    findNavController().navigate(R.id.action_createFragment_to_listFragment)
+                } else {
+                    // Notify the user that saving the Past Text failed.
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.error)
+                        .setMessage(R.string.past_text_duplicate)
+                        .setNeutralButton(R.string.ok) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
             }
             .show()
 

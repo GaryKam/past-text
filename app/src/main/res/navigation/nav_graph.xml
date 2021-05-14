@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="io.github.garykam.pasttext.ui.fragments.ListFragment"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_list">
 
         <action

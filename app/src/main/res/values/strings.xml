@@ -20,6 +20,8 @@
     <string name="past_text_locked">This Past Text is not unlocked yet.</string>
     <string name="past_text_unlocked">A Past Text has unlocked</string>
     <string name="past_text_view">Tap to view details</string>
+    <string name="past_text_duplicate">A Past Text with this title already exists.</string>
+    <string name="error">Error</string>
     <string name="error_title">Title is required</string>
     <string name="error_content">Content is required</string>
     <string name="error_duration">Duration is required</string>
