@@ -66,7 +66,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Create a menu with a "Delete All" option.
-        inflater.inflate(R.menu.list, menu)
+        inflater.inflate(R.menu.menu_list, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -75,8 +75,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 deletePastTexts()
                 true
             }
-            else ->
-                super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="io.github.garykam.pasttext.ui.fragments.ListFragment"
-        android:label="ListFragment"
         tools:layout="@layout/fragment_list">
 
         <action
@@ -22,7 +21,7 @@
     <fragment
         android:id="@+id/createFragment"
         android:name="io.github.garykam.pasttext.ui.fragments.CreateFragment"
-        android:label="CreateFragment"
+        android:label="Create a Past Text"
         tools:layout="@layout/fragment_create">
 
         <action
@@ -33,7 +32,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="io.github.garykam.pasttext.ui.fragments.DetailsFragment"
-        android:label="DetailsFragment"
+        android:label="Past Text Details"
         tools:layout="@layout/fragment_details">
 
         <argument

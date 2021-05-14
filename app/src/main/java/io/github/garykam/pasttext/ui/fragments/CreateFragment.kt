@@ -58,17 +58,17 @@ class CreateFragment : Fragment(R.layout.fragment_create) {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Create a menu with a "Done" option.
-        inflater.inflate(R.menu.create, menu)
+        inflater.inflate(R.menu.menu_create, menu)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_option_done ->
-                submitPastText()
-            else ->
-                super.onOptionsItemSelected(item)
+            R.id.menu_option_done -> submitPastText()
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
