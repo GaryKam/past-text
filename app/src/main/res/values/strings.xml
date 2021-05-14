@@ -8,8 +8,10 @@
     <string name="day">Day</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="delete">Delete All</string>
     <string name="confirm">Confirmation</string>
     <string name="confirm_save">Do you want to save the Past Text?\nIt will be locked until %s.</string>
+    <string name="confirm_delete">Do you want to delete all the Past Texts?\nThis action is permanent.</string>
     <string name="no">@android:string/no</string>
     <string name="yes">@android:string/yes</string>
     <string name="ok">@android:string/ok</string>

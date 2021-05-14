@@ -15,6 +15,12 @@ class MainViewModel(
             repository.addPastText(pastText)
         }
     }
+
+    fun deletePastTexts() {
+        viewModelScope.launch {
+            repository.deleteAllPastTexts()
+        }
+    }
 }
 
 class MainViewModelFactory(

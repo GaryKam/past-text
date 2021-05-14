@@ -1,6 +1,9 @@
 package io.github.garykam.pasttext.ui.fragments
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -19,6 +22,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory((requireActivity().application as PastTextApplication).repository)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,8 +64,41 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Create a menu with a "Delete All" option.
+        inflater.inflate(R.menu.list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_option_delete -> {
+                deletePastTexts()
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * Removes all Past Texts.
+     */
+    private fun deletePastTexts() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.confirm)
+            .setMessage(R.string.confirm_delete)
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                viewModel.deletePastTexts()
+                dialog.dismiss()
+            }
+            .show()
     }
 }

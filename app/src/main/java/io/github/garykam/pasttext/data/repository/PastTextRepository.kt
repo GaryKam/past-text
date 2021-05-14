@@ -7,4 +7,8 @@ class PastTextRepository(private val pastTextDao: PastTextDao) {
     val pastTexts = pastTextDao.getAll()
 
     suspend fun addPastText(pastText: PastText) = pastTextDao.insert(pastText)
+
+    suspend fun deleteAllPastTexts() {
+        pastTextDao.deleteAll()
+    }
 }

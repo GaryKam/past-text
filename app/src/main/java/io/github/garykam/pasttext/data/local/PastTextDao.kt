@@ -1,6 +1,7 @@
 package io.github.garykam.pasttext.data.local
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import io.github.garykam.pasttext.data.model.PastText
@@ -13,4 +14,7 @@ interface PastTextDao {
 
     @Insert
     suspend fun insert(pastText: PastText)
+
+    @Query("DELETE FROM PastText")
+    suspend fun deleteAll()
 }
